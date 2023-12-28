@@ -1,19 +1,12 @@
+<!-- argon-input.vue -->
 <template>
   <div class="form-group">
     <div :class="hasIcon(icon)">
       <span v-if="iconDir === 'left'" class="input-group-text">
         <i :class="getIcon(icon)"></i>
       </span>
-      <input
-        :type="type"
-        class="form-control"
-        :class="getClasses(size, valid)"
-        :name="name"
-        :id="id"
-        :value="value"
-        :placeholder="placeholder"
-        :isRequired="isRequired"
-      />
+      <input :type="type" class="form-control" :class="getClasses(size, valid)" :name="name" :id="id" :value="value"
+        :placeholder="placeholder" :required="isRequired" @input="$emit('input', $event.target.value)" />
       <span v-if="iconDir === 'right'" class="input-group-text">
         <i :class="getIcon(icon)"></i>
       </span>
@@ -43,7 +36,7 @@ export default {
     isRequired: Boolean,
   },
   methods: {
-    getClasses: (size, valid) => {
+    getClasses(size, valid) {
       let sizeValue, isValidValue;
 
       sizeValue = size ? `form-control-${size}` : null;
@@ -52,8 +45,12 @@ export default {
 
       return `${sizeValue} ${isValidValue}`;
     },
-    getIcon: (icon) => (icon ? icon : null),
-    hasIcon: (icon) => (icon ? "input-group" : null),
+    getIcon(icon) {
+      return icon ? icon : null;
+    },
+    hasIcon(icon) {
+      return icon ? "input-group" : null;
+    },
   },
 };
 </script>
